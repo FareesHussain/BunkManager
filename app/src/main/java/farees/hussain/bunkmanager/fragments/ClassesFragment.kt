@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import farees.hussain.bunkmanager.adapter.ClassAdapter
 import farees.hussain.bunkmanager.databinding.FragmentClassesBinding
-import farees.hussain.bunkmanager.model.Class
+import farees.hussain.bunkmanager.db.model.Subject
 
 class ClassesFragment : Fragment() {
 
@@ -23,9 +22,9 @@ class ClassesFragment : Fragment() {
     ): View? {
         b = FragmentClassesBinding.inflate(layoutInflater,container,false)
 
-        var subjects = ArrayList<Class>()
+        var subjects = ArrayList<Subject>()
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        subjects.add(Class("math",0,"0/0","Nothing Added", 0,0,0))
+        subjects.add(Subject("math",0,"0/0","Nothing Added", 0,0,0,0,0))
         b.rvClasses.adapter = ClassAdapter(subjects)
 
         return b.root

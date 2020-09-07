@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.R
-import farees.hussain.bunkmanager.model.Class
+import farees.hussain.bunkmanager.db.model.Subject
 import kotlinx.android.synthetic.main.classes_item.view.*
 
-class ClassAdapter(var classes:List<Class>) : RecyclerView.Adapter<ClassAdapter.ClassHolder>() {
+class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapter.ClassHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
         = ClassHolder(LayoutInflater.from(parent.context).inflate(R.layout.classes_item,parent,false))
 
     override fun onBindViewHolder(holder: ClassHolder, position: Int) {
-        var subject = classes[position]
+        var subject = subjects[position]
         holder.view.tvPercent.text = subject.subjectName
         holder.view.tvPercent.text = "${subject.percentageAttendance}%"
         holder.view.tvCurrentAttendance.text = "Current Attendance ${subject.currentAttendance}"
@@ -29,6 +29,7 @@ class ClassAdapter(var classes:List<Class>) : RecyclerView.Adapter<ClassAdapter.
             if (subject.percentageAttendance < 75) {
                 var noOfClassesToAttend = 3 * subject.totalClasses - 4 * subject.classesAttended
                 if (noOfClassesToAttend < 0) noOfClassesToAttend++
+                subject.classesMustAttend = noOfClassesToAttend
                 holder.view.tvStatus.text =
                     "To get More Than 75% Attend $noOfClassesToAttend classes"
                 holder.view.tvStatus.setTextColor(Color.RED)
@@ -41,6 +42,7 @@ class ClassAdapter(var classes:List<Class>) : RecyclerView.Adapter<ClassAdapter.
                     t++
                 }
                 if(a*100/t<75)noOfClassesCanBeBunked--
+                subject.classesCanBeBunked = noOfClassesCanBeBunked
                 holder.view.tvStatus.text = if(noOfClassesCanBeBunked>0) "You can now Bunk $noOfClassesCanBeBunked classes" else "You Can't Bunk any Class Now"
                 holder.view.tvStatus.setTextColor(Color.GREEN)
             }
@@ -69,7 +71,7 @@ class ClassAdapter(var classes:List<Class>) : RecyclerView.Adapter<ClassAdapter.
         }
     }
 
-    override fun getItemCount() = classes.size
+    override fun getItemCount() = subjects.size
 
     inner class ClassHolder(val view: View):RecyclerView.ViewHolder(view)
 }
