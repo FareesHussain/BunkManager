@@ -26,8 +26,8 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
                 holder.view.tvStatus.text = "Attendance Not Yet Started"
                 return
             }
-            if (subject.percentageAttendance < 75) {
-                var noOfClassesToAttend = 3 * subject.totalClasses - 4 * subject.classesAttended
+            if (subject.percentageAttendance!! < 75) {
+                var noOfClassesToAttend = 3 * subject.totalClasses!! - 4 * subject.classesAttended
                 if (noOfClassesToAttend < 0) noOfClassesToAttend++
                 subject.classesMustAttend = noOfClassesToAttend
                 holder.view.tvStatus.text =
@@ -36,7 +36,7 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
             } else {
                 var noOfClassesCanBeBunked = 0
                 var a = subject.classesAttended
-                var t = subject.totalClasses
+                var t = subject.totalClasses!!
                 while(a*100/t > 75){
                     noOfClassesCanBeBunked++
                     t++

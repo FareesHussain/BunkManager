@@ -24,7 +24,7 @@ class ClassesFragment : Fragment() {
 
         var subjects = ArrayList<Subject>()
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        subjects.add(Subject("math",0,"0/0","Nothing Added", 0,0,0,0,0))
+        subjects.add(Subject("math","Not Yet Started","0/0",0, 0,0,0,false,0))
         b.rvClasses.adapter = ClassAdapter(subjects)
 
         return b.root
