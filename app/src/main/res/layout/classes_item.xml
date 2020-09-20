@@ -10,7 +10,7 @@
     android:clickable="true"
     android:focusable="true"
     android:padding="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginTop="3dp"
     app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:id="@+id/tvSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="Subject"
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textSize="30sp"
@@ -35,7 +35,7 @@
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="25dp"
             android:text="Status"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="25dp"
             android:text="Current Attandance : 0/0"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary"
@@ -64,12 +64,13 @@
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
             android:text="Attend"
             android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buNoClass"
             app:layout_constraintTop_toBottomOf="@+id/tvStatus" />
 
         <com.google.android.material.button.MaterialButton
@@ -77,15 +78,12 @@
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="176dp"
-            android:layout_marginRight="176dp"
             android:text="Bunk"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/buAttend"
-            app:layout_constraintEnd_toStartOf="@+id/buAttend"
-            app:layout_constraintHorizontal_bias="0.484"
+            app:layout_constraintBottom_toBottomOf="@+id/buNoClass"
+            app:layout_constraintEnd_toStartOf="@+id/buNoClass"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buAttend"
+            app:layout_constraintTop_toTopOf="@+id/buNoClass"
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.button.MaterialButton
@@ -95,10 +93,11 @@
             android:layout_height="wrap_content"
             android:text="No Class Today"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="@+id/buBunk"
-            app:layout_constraintEnd_toStartOf="@+id/buAttend"
-            app:layout_constraintStart_toEndOf="@+id/buBunk"
-            app:layout_constraintTop_toTopOf="@+id/buBunk" />
+            app:layout_constraintBottom_toBottomOf="@+id/buAttend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buAttend"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvPercent"

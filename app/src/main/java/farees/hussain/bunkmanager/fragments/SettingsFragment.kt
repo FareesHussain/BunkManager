@@ -9,24 +9,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.adapter.ClassAdapter
 import farees.hussain.bunkmanager.databinding.FragmentClassesBinding
+import farees.hussain.bunkmanager.databinding.FragmentSettingsBinding
 import farees.hussain.bunkmanager.db.model.Subject
 
-class ClassesFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
-    private lateinit var b : FragmentClassesBinding
+    private lateinit var b : FragmentSettingsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        b = FragmentClassesBinding.inflate(layoutInflater,container,false)
+        b = FragmentSettingsBinding.inflate(layoutInflater,container,false)
 
-        var subjects = ArrayList<Subject>()
-        b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        subjects.add(Subject("math","Not Yet Started","0/0",90, 117,0,0,false))
-        subjects.add(Subject("math","Not Yet Started","0/0",0, 0,0,0,false))
-        b.rvClasses.adapter = ClassAdapter(subjects)
 
         return b.root
     }

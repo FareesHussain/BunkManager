@@ -46,17 +46,22 @@ class SubjectDaoTest {
 
     @Test
     fun insertSubjectItem() = runBlockingTest {
-        val subjectItem = Subject("physics","not implemented","not implemented",4,5,id=1)
+        val subjectItem = Subject("physics","0","0",0,0,0,0,false,id=1)
         dao.insertSubjectItem(subjectItem)
         val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
         assertThat(allShoppingItems).contains(subjectItem)
     }
     @Test
     fun deleteSubjectItem() = runBlockingTest {
-        val subjectItem = Subject("physics","not implemented","not implemented",4,5,id=1)
+        val subjectItem = Subject("physics","0","0",0,0,0,0,false,id=1)
         dao.insertSubjectItem(subjectItem)
         dao.deleteSubjectItem(subjectItem)
         val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
         assertThat(allShoppingItems).doesNotContain(subjectItem)
+    }
+
+    @Test
+    fun observeToastMustAttendClasses() = runBlockingTest {
+//        val subjectItem = Subject("math",)
     }
 }

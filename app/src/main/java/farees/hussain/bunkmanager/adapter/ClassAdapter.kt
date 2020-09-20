@@ -16,9 +16,10 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
 
     override fun onBindViewHolder(holder: ClassHolder, position: Int) {
         var subject = subjects[position]
-        holder.view.tvPercent.text = subject.subjectName
+        subject.percentageAttendance = if(subject.totalClasses == 0) 0.0 else Math.round((subject.classesAttended.toDouble()*100/subject.totalClasses).toDouble() * 10.0)/10.0
         holder.view.tvPercent.text = "${subject.percentageAttendance}%"
-        holder.view.tvCurrentAttendance.text = "Current Attendance ${subject.currentAttendance}"
+        holder.view.tvSubject.text = subject.subjectName
+        holder.view.tvCurrentAttendance.text = "Current Attendance : ${subject.currentAttendance}"
 
         /*attendance status if less than 75 and if greater than 75%*/
         fun changeStatus() {
@@ -37,7 +38,7 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
                 var noOfClassesCanBeBunked = 0
                 var a = subject.classesAttended
                 var t = subject.totalClasses!!
-                while(a*100/t > 75){
+                while(a*100/t >= 75.0){
                     noOfClassesCanBeBunked++
                     t++
                 }
@@ -49,21 +50,21 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
         }
         changeStatus()
         holder.view.buBunk.setOnClickListener {
-            subject.classesBunked++
             subject.totalClasses++
             subject.currentAttendance = "Current Attendance ${subject.classesAttended}/${subject.totalClasses}"
-            subject.percentageAttendance = subject.classesAttended * 100 / subject.totalClasses
+            var percentage = subject.classesAttended.toDouble() * 100.0/subject.totalClasses
+            subject.percentageAttendance = Math.round(percentage * 10.0)/10.0
 
-
-            holder.view.tvCurrentAttendance.text = "Current Attendance ${subject.classesAttended}/${subject.totalClasses}"
-            holder.view.tvPercent.text = "${subject.classesAttended * 100 / subject.totalClasses}%"
+            holder.view.tvCurrentAttendance.text = "Current Attendance : ${subject.classesAttended}/${subject.totalClasses}"
+            holder.view.tvPercent.text = "${subject.percentageAttendance}%"
             changeStatus()
         }
         holder.view.buAttend.setOnClickListener {
             subject.classesAttended++
             subject.totalClasses++
-            subject.currentAttendance = "Current Attendance ${subject.classesAttended}/${subject.totalClasses}"
-            subject.percentageAttendance = subject.classesAttended * 100 / subject.totalClasses
+            subject.currentAttendance = "Current Attendance : ${subject.classesAttended}/${subject.totalClasses}"
+            var percentage = subject.classesAttended.toDouble() * 100.0/subject.totalClasses
+            subject.percentageAttendance = Math.round(percentage * 10.0)/10.0
 
             holder.view.tvCurrentAttendance.text = subject.currentAttendance
             holder.view.tvPercent.text = "${subject.percentageAttendance}%"

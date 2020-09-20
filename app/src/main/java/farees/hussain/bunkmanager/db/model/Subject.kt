@@ -13,8 +13,7 @@ data class Subject(
     var classesCanBeBunked:Int?=null,
     var classesMustAttend:Int?=null,
     var attendanceCheckedToday:Boolean ?=false,
-    var classesBunked: Int = totalClasses - classesAttended,
-    var percentageAttendance:Int?=(classesAttended*100/totalClasses).toInt(),
+    var percentageAttendance:Double?= if(totalClasses == 0)0.0 else Math.round((classesAttended.toDouble()*100/totalClasses).toDouble() * 10.0)/10.0,
     var requiredPercentageAttendance:Int?=75,
 
     @PrimaryKey(autoGenerate = true)
