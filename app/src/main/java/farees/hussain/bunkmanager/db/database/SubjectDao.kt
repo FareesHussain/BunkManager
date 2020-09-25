@@ -20,5 +20,11 @@ interface SubjectDao {
     fun observeTotalMustAttendClasses():LiveData<Int>
 
     @Query("select SUM(classesCanBeBunked) from subject_items")
-    fun observeTotalCanBeBunkedClasses():LiveData<Int>
+    fun observeTotalCanBunkClasses():LiveData<Int>
+
+    @Query("select SUM(classesAttended) from subject_items")
+    fun observeTotalClassesAttended():LiveData<Int>
+
+    @Query("select SUM(totalClasses - classesAttended) from subject_items")
+    fun observeTotalClassesBunked():LiveData<Int>
 }

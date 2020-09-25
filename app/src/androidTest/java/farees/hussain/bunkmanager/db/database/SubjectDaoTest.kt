@@ -61,7 +61,47 @@ class SubjectDaoTest {
     }
 
     @Test
-    fun observeToastMustAttendClasses() = runBlockingTest {
-//        val subjectItem = Subject("math",)
+    fun observeTotalMustAttendClasses() = runBlockingTest {
+        val subjectItem1 = Subject("math","0","0",0,0,0,0,false,id = 1)
+        val subjectItem2 = Subject("math","0","0",3,4,0,5,false,id = 2)
+        val subjectItem3 = Subject("math","0","0",3,4,0,10,false,id = 3)
+        dao.insertSubjectItem(subjectItem1)
+        dao.insertSubjectItem(subjectItem2)
+        dao.insertSubjectItem(subjectItem3)
+        val totalMustAttend = dao.observeTotalMustAttendClasses().getOrAwaitValue()
+        assertThat(totalMustAttend).isEqualTo(15)
+    }
+    @Test
+    fun observeTotalCanBunkClasses() = runBlockingTest {
+        val subjectItem1 = Subject("math","0","0",0,0,0,0,false,id = 1)
+        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        dao.insertSubjectItem(subjectItem1)
+        dao.insertSubjectItem(subjectItem2)
+        dao.insertSubjectItem(subjectItem3)
+        val totalMustAttend = dao.observeTotalCanBunkClasses().getOrAwaitValue()
+        assertThat(totalMustAttend).isEqualTo(15)
+    }
+    @Test
+    fun observeTotalBunkedClasses() = runBlockingTest {
+        val subjectItem1 = Subject("math","0","0",16,20,0,0,false,id = 1)
+        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        dao.insertSubjectItem(subjectItem1)
+        dao.insertSubjectItem(subjectItem2)
+        dao.insertSubjectItem(subjectItem3)
+        val totalMustAttend = dao.observeTotalClassesBunked().getOrAwaitValue()
+        assertThat(totalMustAttend).isEqualTo(6)
+    }
+    @Test
+    fun observeTotalAttendedClasses() = runBlockingTest {
+        val subjectItem1 = Subject("math","0","0",16,20,0,0,false,id = 1)
+        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        dao.insertSubjectItem(subjectItem1)
+        dao.insertSubjectItem(subjectItem2)
+        dao.insertSubjectItem(subjectItem3)
+        val totalMustAttend = dao.observeTotalClassesAttended().getOrAwaitValue()
+        assertThat(totalMustAttend).isEqualTo(22)
     }
 }
