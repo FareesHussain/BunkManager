@@ -21,11 +21,11 @@ class ClassesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         b = FragmentClassesBinding.inflate(layoutInflater,container,false)
-
-        var subjects = ArrayList<Subject>()
+        var subjects = ArrayList<Subject>().apply {
+            add(Subject("math","Not Yet Started","0/0",90, 117,0,0,false))
+            add(Subject("math","Not Yet Started","0/0",0, 0,0,0,false))
+        }
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        subjects.add(Subject("math","Not Yet Started","0/0",90, 117,0,0,false))
-        subjects.add(Subject("math","Not Yet Started","0/0",0, 0,0,0,false))
         b.rvClasses.adapter = ClassAdapter(subjects)
 
         return b.root
