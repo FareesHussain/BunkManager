@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBar
 import androidx.core.app.NotificationCompat
@@ -30,6 +31,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
+
+        //navHeader settings
+        var navView = navView
+        var navHeader = navView.getHeaderView(0)
+        var canBunkCount = navHeader.tvCanBunk
+        var mustAttend = navHeader.tvMustAttend
+        canBunkCount.apply {
+            //if(getSubjectsCount>0) text = "Can Bunk : $totalCanBunk" else
+            visibility = View.GONE
+        }
+        mustAttend.apply {
+            //if(getSubjectsCount>0) text = "Can Attend : $totalMustAttend" else
+            visibility = View.GONE
+        }
+
         //tool bar settings
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
