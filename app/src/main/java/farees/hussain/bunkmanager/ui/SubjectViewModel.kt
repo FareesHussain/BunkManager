@@ -27,15 +27,73 @@ class SubjectViewModel @ViewModelInject constructor(
 
         repository.insertSubjectItem(subject)
     }
-    fun insertShoppingItem(subjectName: String,requiredPercentage:String,classeAttended:String,totalClasses:String){
-//        val subjectItem = Subject(
-//            subjectName = subjectName,
-//            requiredPercentageAttendance = requiredPercentage.toInt(),
-//            classesAttended = classeAttended.toInt(),
-//            totalClasses = totalClasses.toInt()
-//        )
-//        _insertSubjectItemStatus.postValue(Event(Resource.success()))
+    fun insertShoppingItem(subjectName: String,requiredPercentage:String, classesAttended:String, totalClasses:String){
+        var requiredPercentage = requiredPercentage
+        var classesAttended = classesAttended
+        var totalClasses = totalClasses
+        if(subjectName.isEmpty()){
+            _insertSubjectItemStatus.postValue(Event(Resource.error("Subject Name Cant' be Empty",null)))
+            return
+        }
+        if(requiredPercentage.isEmpty()){
+            requiredPercentage = "75"
+        }
+        if(classesAttended.isEmpty()) classesAttended = "0"
+        if(totalClasses.isEmpty()) totalClasses = "0"
+        if(classesAttended.toInt() > totalClasses.toInt()){
+            _insertSubjectItemStatus.postValue(Event(Resource.error("Classes Attended Must be Less Than Total Classes",null)))
+            return
+        }
+
+        val subjectItem = getCompleteSubjectItem(subjectName,requiredPercentage,classesAttended,totalClasses)
+        _insertSubjectItemStatus.postValue(Event(Resource.success(subjectItem)))
     }
 
+    private fun getCompleteSubjectItem(
+        subjectName: String,
+        requiredPercentage: String,
+        classesAttended: String,
+        totalClasses: String
+    ): Subject {
+        var status: String
+        var currentAttendance : String
+        var percentageAttendance : Double = if(totalClasses == "0") 0.0 else Math.round((classesAttended.toInt().toDouble()*100/totalClasses.toInt()).toDouble() * 10.0)/10.0
+        var noOfClassesToAttend = 0
+        var noOfClassesCanBeBunked = 0
+        if(totalClasses=="0"){
+            status = "Attendance Not Yet Started"
+            currentAttendance = "Attendance Not Yet Started"
+        }
+        else{
+            currentAttendance = "Current Attendance : $classesAttended/$totalClasses"
+            if(percentageAttendance<75){
+                noOfClassesToAttend = 3 * totalClasses.toInt()!! - 4 * classesAttended.toInt()
+                if (noOfClassesToAttend < 0) noOfClassesToAttend++
+                var classesMustAttend = noOfClassesToAttend
+                status = "To get More Than 75% Attend $noOfClassesToAttend classes"
+            } else {
+                var a = classesAttended.toInt()
+                var t = totalClasses.toInt()
+                while(a*100/t >= 75.0){
+                    noOfClassesCanBeBunked++
+                    t++
+                }
+                if(a*100/t<75)noOfClassesCanBeBunked--
+                status = if(noOfClassesCanBeBunked>0) "You can now Bunk $noOfClassesCanBeBunked classes" else "You Can't Bunk any Class Now"
+            }
+        }
+        return Subject(
+            subjectName = subjectName,
+            requiredPercentageAttendance = requiredPercentage.toInt(),
+            classesAttended = classesAttended.toInt(),
+            totalClasses = totalClasses.toInt(),
+            status = status,
+            currentAttendance = currentAttendance,
+            classesCanBeBunked = noOfClassesCanBeBunked,
+            classesMustAttend = noOfClassesToAttend,
+            attendanceCheckedToday = false,
+            percentageAttendance = percentageAttendance
+        )
+    }
 
 }
