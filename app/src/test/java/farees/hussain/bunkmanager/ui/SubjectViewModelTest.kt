@@ -55,6 +55,87 @@ class SubjectViewModelTest{
     //Todo ->>>> to add time for alarm notification and a check box to set if the user needs the alarm notification
 
     //! -> tests for getCompleteSubjectItem
+    @Test
+    fun `testing the percentage attendance`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "3",
+            "4"
+        )
+        assertThat(subject.percentageAttendance).isEqualTo(75.0)
+    }
+    @Test
+    fun `testing the can Bunk classes if percentage is required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "3",
+            "4"
+        )
+        assertThat(subject.classesCanBeBunked).isEqualTo(0)
+    }
+    @Test
+    fun `testing the can Bunk classes  if percentage less than required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "3",
+            "6"
+        )
+        assertThat(subject.classesCanBeBunked).isEqualTo(0)
+    }
+    @Test
+    fun `testing the can Bunk classes  if percentage slightly greater than required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "92",
+            "122"
+        )
+        assertThat(subject.classesCanBeBunked).isEqualTo(0)
+    }
+   @Test
+    fun `testing the can Bunk classes  if percentage greater than required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "93",
+            "123"
+        )
+        assertThat(subject.classesCanBeBunked).isEqualTo(1)
+    }
+
+    @Test
+    fun `testing the must attend classes if percentage is required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "3",
+            "4"
+        )
+        assertThat(subject.classesMustAttend).isEqualTo(0)
+    }
+    @Test
+    fun `testing the must attend classes if percentage is less than required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "93",
+            "125"
+        )
+        assertThat(subject.classesMustAttend).isEqualTo(3)
+    }
+    @Test
+    fun `testing the must attend classes if percentage is greater than required Percentage`(){
+        val subject = viewModel.getCompleteSubjectItem(
+            "subject Name",
+            "75",
+            "19",
+            "24"
+        )
+        assertThat(subject.classesMustAttend).isEqualTo(0)
+    }
 
 
 }

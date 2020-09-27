@@ -49,7 +49,7 @@ class SubjectViewModel @ViewModelInject constructor(
         _insertSubjectItemStatus.postValue(Event(Resource.success(subjectItem)))
     }
 
-    private fun getCompleteSubjectItem(
+    fun getCompleteSubjectItem(
         subjectName: String,
         requiredPercentage: String,
         classesAttended: String,
@@ -60,13 +60,14 @@ class SubjectViewModel @ViewModelInject constructor(
         var percentageAttendance : Double = if(totalClasses == "0") 0.0 else Math.round((classesAttended.toInt().toDouble()*100/totalClasses.toInt()).toDouble() * 10.0)/10.0
         var noOfClassesToAttend = 0
         var noOfClassesCanBeBunked = 0
+        var requiredPercentage = requiredPercentage.toInt()
         if(totalClasses=="0"){
             status = "Attendance Not Yet Started"
             currentAttendance = "Attendance Not Yet Started"
         }
         else{
             currentAttendance = "Current Attendance : $classesAttended/$totalClasses"
-            if(percentageAttendance<75){
+            if(percentageAttendance<requiredPercentage){
                 noOfClassesToAttend = 3 * totalClasses.toInt()!! - 4 * classesAttended.toInt()
                 if (noOfClassesToAttend < 0) noOfClassesToAttend++
                 var classesMustAttend = noOfClassesToAttend
@@ -74,7 +75,7 @@ class SubjectViewModel @ViewModelInject constructor(
             } else {
                 var a = classesAttended.toInt()
                 var t = totalClasses.toInt()
-                while(a*100/t >= 75.0){
+                while(a*100/t >= requiredPercentage.toDouble()){
                     noOfClassesCanBeBunked++
                     t++
                 }
