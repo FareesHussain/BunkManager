@@ -71,7 +71,7 @@ class SubjectViewModel @ViewModelInject constructor(
                 noOfClassesToAttend = 3 * totalClasses.toInt()!! - 4 * classesAttended.toInt()
                 if (noOfClassesToAttend < 0) noOfClassesToAttend++
                 var classesMustAttend = noOfClassesToAttend
-                status = "To get More Than 75% Attend $noOfClassesToAttend classes"
+                status = "To get More Than ${requiredPercentage}% Attend $noOfClassesToAttend classes"
             } else {
                 var a = classesAttended.toInt()
                 var t = totalClasses.toInt()

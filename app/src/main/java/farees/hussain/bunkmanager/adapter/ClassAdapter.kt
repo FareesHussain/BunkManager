@@ -28,22 +28,22 @@ class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapt
                 return
             }
             holder.view.tvCurrentAttendance.text = "Current Attendance : ${subject.classesAttended}/${subject.totalClasses}"
-            if (subject.percentageAttendance!! < 75) {
-                var noOfClassesToAttend = 3 * subject.totalClasses!! - 4 * subject.classesAttended
+            if (subject.percentageAttendance!! < subject.requiredPercentageAttendance) {
+                var noOfClassesToAttend = 3 * subject.totalClasses - 4 * subject.classesAttended
                 if (noOfClassesToAttend < 0) noOfClassesToAttend++
                 subject.classesMustAttend = noOfClassesToAttend
                 holder.view.tvStatus.text =
-                    "To get More Than 75% Attend $noOfClassesToAttend classes"
+                    "To get More Than ${subject.requiredPercentageAttendance}% Attend $noOfClassesToAttend classes"
                 holder.view.tvStatus.setTextColor(Color.RED)
             } else {
                 var noOfClassesCanBeBunked = 0
                 var a = subject.classesAttended
-                var t = subject.totalClasses!!
-                while(a*100/t >= 75.0){
+                var t = subject.totalClasses
+                while(a*100/t >= subject.requiredPercentageAttendance.toDouble()){
                     noOfClassesCanBeBunked++
                     t++
                 }
-                if(a*100/t<75)noOfClassesCanBeBunked--
+                if(a*100/t<subject.requiredPercentageAttendance)noOfClassesCanBeBunked--
                 subject.classesCanBeBunked = noOfClassesCanBeBunked
                 holder.view.tvStatus.text = if(noOfClassesCanBeBunked>0) "You can now Bunk $noOfClassesCanBeBunked classes" else "You Can't Bunk any Class Now"
                 holder.view.tvStatus.setTextColor(Color.GREEN)

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "subject_items")
 data class Subject(
     var subjectName:String,
-    var requiredPercentageAttendance:Int?=75,
+    var requiredPercentageAttendance:Int=75,
     var currentAttendance: String,
     var status: String,
     var classesAttended:Int,
