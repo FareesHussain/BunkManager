@@ -6,10 +6,9 @@ import farees.hussain.bunkmanager.db.model.Subject
 interface SubjectRepository {
     suspend fun insertSubjectItem(subjectItem: Subject)
     suspend fun deleteSubjectItem(subjectItem: Subject)
-
-    suspend fun observeAllSubjectItems() : LiveData<List<Subject>>
-    suspend fun observeTotalMustAttend() : LiveData<Int>
-    suspend fun observeTotalCanBunk() : LiveData<Int>
-    suspend fun observeTotalClassesAttended() : LiveData<Int>
-    suspend fun observeTotalClassesBunked() : LiveData<Int>
+    fun observeAllSubjectItems() : LiveData<List<Subject>>
+    fun observeTotalMustAttend() : LiveData<Int>
+    fun observeTotalCanBunk() : LiveData<Int>
+    fun observeTotalClassesAttended() : LiveData<Int>
+    fun observeTotalClassesBunked() : LiveData<Int>
 }

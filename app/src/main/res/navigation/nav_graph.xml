@@ -5,10 +5,10 @@
 
     <fragment
         android:id="@+id/classesFragment"
-        android:name="farees.hussain.bunkmanager.fragments.ClassesFragment"
+        android:name="farees.hussain.bunkmanager.ui.fragments.ClassesFragment"
         android:label="ClassesFragment" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="farees.hussain.bunkmanager.fragments.SettingsFragment"
+        android:name="farees.hussain.bunkmanager.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
 </navigation>

@@ -16,13 +16,9 @@ class DefaultSubjectRepository @Inject constructor(
         subjectDao.deleteSubjectItem(subjectItem)
     }
 
-    override suspend fun observeAllSubjectItems() = subjectDao.observeAllSubjectItems()
-
-    override suspend fun observeTotalMustAttend() = subjectDao.observeTotalMustAttendClasses()
-
-    override suspend fun observeTotalCanBunk() = subjectDao.observeTotalCanBunkClasses()
-
-    override suspend fun observeTotalClassesAttended() = subjectDao.observeTotalClassesAttended()
-
-    override suspend fun observeTotalClassesBunked() = subjectDao.observeTotalClassesBunked()
+    override fun observeAllSubjectItems() = subjectDao.observeAllSubjectItems()
+    override fun observeTotalMustAttend() = subjectDao.observeTotalMustAttendClasses()
+    override fun observeTotalCanBunk() = subjectDao.observeTotalCanBunkClasses()
+    override fun observeTotalClassesAttended() = subjectDao.observeTotalClassesAttended()
+    override fun observeTotalClassesBunked() = subjectDao.observeTotalClassesBunked()
 }
