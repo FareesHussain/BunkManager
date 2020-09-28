@@ -26,8 +26,8 @@ class ClassesFragment : Fragment() {
         b = FragmentClassesBinding.inflate(layoutInflater,container,false)
         viewModel = ViewModelProvider(requireActivity()).get(SubjectViewModel::class.java)
         var subjects = ArrayList<Subject>().apply {
-            add(Subject("math",null,"Not Yet Started","0/0",90, 117,0,0,false))
-            add(Subject("math",null,"Not Yet Started","0/0",0, 0,0,0,false))
+            add(Subject("math",75,"Not Yet Started","0/0",90, 117,0,0,false))
+            add(Subject("math",75,"Not Yet Started","0/0",0, 0,0,0,false))
         }
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
         b.rvClasses.adapter = ClassAdapter(subjects)

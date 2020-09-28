@@ -14,11 +14,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header.view.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var b : ActivityMainBinding
     private lateinit var viewModel: SubjectViewModel
@@ -39,21 +41,21 @@ class MainActivity : AppCompatActivity() {
 //            if(getSubjectsCount>0) text = "Can Attend : $totalMustAttend" else visibility = View.GONE
         }
 
-        //tool bar settings
-//        val navController = findNavController(R.id.nav_host_fragment)
-//        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-//        NavigationUI.setupWithNavController(navView, navController)
-//        toolbar.apply {
-//            setupWithNavController(navController,appBarConfiguration)
-//            title = null
-//        }
-//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            toolbar.title = null
-//            when(destination.id){
-//                R.id.settingsFragment -> b.title.text = "Settings"
-//                R.id.classesFragment -> b.title.text = "Bunk Manager"
-//            }
-//        }
+        //tool bar settings and navigation
+        val navController = findNavController(R.id.nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        NavigationUI.setupWithNavController(navView, navController)
+        toolbar.apply {
+            setupWithNavController(navController,appBarConfiguration)
+            title = null
+        }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            toolbar.title = null
+            when(destination.id){
+                R.id.settingsFragment -> b.title.text = "Settings"
+                R.id.classesFragment -> b.title.text = "Bunk Manager"
+            }
+        }
 
         // for notifications
         createNotificationChannel()
@@ -62,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         //
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = this.findNavController(R.id.nav_host_fragment)
-//        toolbar.title = null
-//        return NavigationUI.navigateUp(navController, drawerLayout)
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        toolbar.title = null
+        return NavigationUI.navigateUp(navController, drawerLayout)
+    }
 
     var CHANNEL_ID = "channelId"
     var CHANNEL_NAME = "makeAttendanceNow"
