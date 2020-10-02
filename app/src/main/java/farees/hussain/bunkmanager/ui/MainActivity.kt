@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             when(destination.id){
                 R.id.settingsFragment -> b.title.text = "Settings"
                 R.id.classesFragment -> b.title.text = "Bunk Manager"
+                R.id.timetableFragment -> b.title.text = "Time Table"
             }
         }
 

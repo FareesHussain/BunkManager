@@ -95,6 +95,9 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //Smart Tab Layout used for TimeTable
+    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
+
     // Local Unit Tests
     implementation "androidx.test:core:1.3.0"
     testImplementation "junit:junit:4.13"

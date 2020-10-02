@@ -11,4 +11,8 @@
         android:id="@+id/settingsFragment"
         android:name="farees.hussain.bunkmanager.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="farees.hussain.bunkmanager.ui.fragments.TimetableFragment"
+        android:label="TimetableFragment" />
 </navigation>

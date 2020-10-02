@@ -7,6 +7,10 @@
         />
 
     <item
+        android:id="@+id/timetableFragment"
+        android:title="Time Table"
+        android:icon="@drawable/ic_timetable"/>
+    <item
         android:id="@+id/settingsFragment"
         android:title="Change Settings"
         android:icon="@drawable/ic_settings"/>
