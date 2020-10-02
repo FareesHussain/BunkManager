@@ -10,7 +10,7 @@ import farees.hussain.bunkmanager.other.Constants
 import kotlinx.android.synthetic.main.timetable_classitem.view.*
 
 class TimetableClassesAdapter (
-    val classes : Array<TimeTableItem>,
+    val classes : List<TimeTableItem>,
     day: Constants.timeTableDay
 ) : RecyclerView.Adapter<TimetableClassesAdapter.TimeTableViewHolder>() {
     inner class TimeTableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
