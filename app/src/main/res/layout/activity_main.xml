@@ -26,7 +26,7 @@
             style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/material_grey_900">
+            android:background="@color/toolbarBackground">
 
             <TextView
                 android:id="@+id/title"
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/njnaruto"
                 android:text="Bunk Manager"
+                android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 android:textSize="23sp" />
         </androidx.appcompat.widget.Toolbar>

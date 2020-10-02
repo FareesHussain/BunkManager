@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:viewBindingIgnore="false"
-    android:background="#000000"
+    android:background="@color/ClassesFragmentBackground"
     >
 
     <androidx.recyclerview.widget.RecyclerView
