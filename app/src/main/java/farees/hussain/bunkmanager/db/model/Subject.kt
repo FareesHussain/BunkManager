@@ -2,8 +2,9 @@ package farees.hussain.bunkmanager.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import farees.hussain.bunkmanager.other.Constants.SUBJECT_TABLE_NAME
 
-@Entity(tableName = "subject_items")
+@Entity(tableName = SUBJECT_TABLE_NAME)
 data class Subject(
     var subjectName:String,
     var requiredPercentageAttendance:Int=75,
