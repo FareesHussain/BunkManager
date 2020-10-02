@@ -9,6 +9,8 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
             android:text="Subject Name"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -31,11 +32,12 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:padding="2dp"
-            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvAlaramTime"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/tvSubjectTime"
             app:layout_constraintTop_toTopOf="@+id/tvSubjectTime"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_edit" />
 
         <ImageView
@@ -44,8 +46,8 @@
             android:layout_height="54dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_delete" />
 
         <TextView
