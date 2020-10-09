@@ -46,7 +46,7 @@ class SubjectItemAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<Subj
                 if(a*100/t<subject.requiredPercentageAttendance)noOfClassesCanBeBunked--
                 subject.classesCanBeBunked = noOfClassesCanBeBunked
                 holder.view.tvStatus.text = if(noOfClassesCanBeBunked>0) "You can now Bunk $noOfClassesCanBeBunked classes" else "You Can't Bunk any Class Now"
-                holder.view.tvStatus.setTextColor(Color.GREEN)
+                holder.view.tvStatus.setTextColor(Color.MAGENTA)
             }
         }
         changeStatus()

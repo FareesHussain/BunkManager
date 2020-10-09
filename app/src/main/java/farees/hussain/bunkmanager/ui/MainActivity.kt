@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             title = null
         }
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            toolbar.title = null
+            b.toolbar.title = null
             when(destination.id){
                 R.id.settingsFragment -> b.title.text = "Settings"
                 R.id.classesFragment -> b.title.text = "Bunk Manager"
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
         b.toolbar.title = null
-        return navController.navigateUp()
+        return NavigationUI.navigateUp(navController,b.drawerLayout)
     }
 
     var CHANNEL_ID = "channelId"
