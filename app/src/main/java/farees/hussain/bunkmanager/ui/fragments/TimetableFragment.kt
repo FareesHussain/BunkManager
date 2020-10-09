@@ -53,6 +53,7 @@ class TimetableFragment : Fragment() {
         val adapter = TimetablePagerAdapter(days, timetableItems)
 
         b.viewpager.adapter = adapter
+
         TabLayoutMediator(b.viewpagertab,b.viewpager){ tab, position ->
             tab.text = days[position].toString()
         }.attach()

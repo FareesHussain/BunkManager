@@ -30,8 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
 
         //navHeader settings
-        var navView = navView
-        var navHeader = navView.getHeaderView(0)
+        var navHeader = b.navView.getHeaderView(0)
         var canBunkCount = navHeader.tvCanBunk
         var mustAttend = navHeader.tvMustAttend
         canBunkCount.apply {
@@ -41,11 +40,11 @@ class MainActivity : AppCompatActivity() {
 //            if(getSubjectsCount>0) text = "Can Attend : $totalMustAttend" else visibility = View.GONE
         }
 
-        //tool bar settings and navigation
+        //tool bar settings and navigation, drawer layout
         val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        NavigationUI.setupWithNavController(navView, navController)
-        toolbar.apply {
+        val appBarConfiguration = AppBarConfiguration(navController.graph, b.drawerLayout)
+        NavigationUI.setupWithNavController(b.navView, navController)
+        b.toolbar.apply {
             setupWithNavController(navController,appBarConfiguration)
             title = null
         }
@@ -67,8 +66,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
-        toolbar.title = null
-        return NavigationUI.navigateUp(navController, drawerLayout)
+        b.toolbar.title = null
+        return navController.navigateUp()
     }
 
     var CHANNEL_ID = "channelId"

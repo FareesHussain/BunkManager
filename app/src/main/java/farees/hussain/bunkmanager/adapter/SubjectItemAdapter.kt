@@ -9,7 +9,7 @@ import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.db.model.Subject
 import kotlinx.android.synthetic.main.classes_item.view.*
 
-class ClassAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<ClassAdapter.ClassHolder>() {
+class SubjectItemAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<SubjectItemAdapter.ClassHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
         = ClassHolder(LayoutInflater.from(parent.context).inflate(R.layout.classes_item,parent,false))

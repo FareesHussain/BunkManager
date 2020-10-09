@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import farees.hussain.bunkmanager.adapter.ClassAdapter
+import farees.hussain.bunkmanager.adapter.SubjectItemAdapter
 import farees.hussain.bunkmanager.databinding.FragmentClassesBinding
 import farees.hussain.bunkmanager.db.model.Subject
 import farees.hussain.bunkmanager.ui.SubjectViewModel
@@ -30,7 +30,7 @@ class ClassesFragment : Fragment() {
             add(Subject("math",75,"Not Yet Started","0/0",0, 0,0,0,false))
         }
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        b.rvClasses.adapter = ClassAdapter(subjects)
+        b.rvClasses.adapter = SubjectItemAdapter(subjects)
 
         return b.root
     }
