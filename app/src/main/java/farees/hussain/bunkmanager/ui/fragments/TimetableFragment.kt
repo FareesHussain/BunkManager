@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import farees.hussain.bunkmanager.adapter.TimetablePagerAdapter
+import farees.hussain.bunkmanager.adapter.transformer.ZoomOutPageTransformer
 import farees.hussain.bunkmanager.databinding.FragmentSettingsBinding
 import farees.hussain.bunkmanager.databinding.FragmentTimetableBinding
 import farees.hussain.bunkmanager.db.model.TimeTableItem
@@ -50,9 +51,13 @@ class TimetableFragment : Fragment() {
             add(Constants.timeTableDay.FRIDAY)
             add(Constants.timeTableDay.SATURDAY)
         }
-        val adapter = TimetablePagerAdapter(days, timetableItems)
+        val pagerAdapter = TimetablePagerAdapter(days, timetableItems)
 
-        b.viewpager.adapter = adapter
+        b.viewpager.apply {
+            adapter = pagerAdapter
+            offscreenPageLimit = 3
+            setPageTransformer(ZoomOutPageTransformer())
+        }
 
         TabLayoutMediator(b.viewpagertab,b.viewpager){ tab, position ->
             tab.text = days[position].toString()
