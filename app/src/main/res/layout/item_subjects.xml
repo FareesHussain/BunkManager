@@ -13,6 +13,13 @@
     android:layout_margin="3dp"
     app:cardPreventCornerOverlap="false">
 
+    <data>
+        <variable>
+            name="subject"
+            type="farees.hussain.bunkmanager.db.model.Subject"
+        </variable>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
