@@ -6,6 +6,6 @@
     <color name="colorPrimaryDark">#070215</color>
     <color name="FragmentBackground">#000000</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="canBunk">#640000</color>
-    <color name="cantBunk">#006400</color>
+    <color name="cantBunk">#640000</color>
+    <color name="canBunk">#006400</color>
 </resources>
