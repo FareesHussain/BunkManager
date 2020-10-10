@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import farees.hussain.bunkmanager.adapter.TimetablePagerAdapter
-import farees.hussain.bunkmanager.adapter.transformer.ZoomOutPageTransformer
+import farees.hussain.bunkmanager.adapter.transformers.ZoomOutPageTransformer
 import farees.hussain.bunkmanager.databinding.FragmentTimetableBinding
 import farees.hussain.bunkmanager.db.model.TimeTableItem
 import farees.hussain.bunkmanager.other.Constants
 import java.sql.Time
-import java.time.DayOfWeek
 
 class TimetableFragment : Fragment() {
 

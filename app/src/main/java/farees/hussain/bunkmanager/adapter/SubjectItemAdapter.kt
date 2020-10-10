@@ -4,18 +4,20 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.db.model.Subject
 import kotlinx.android.synthetic.main.item_subjects.view.*
 
-class SubjectItemAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<SubjectItemAdapter.ClassHolder>() {
+class SubjectItemAdapter() : ListAdapter<Subject, SubjectItemAdapter.ClassHolder>(SubjectItemDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
         = ClassHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_subjects,parent,false))
 
     override fun onBindViewHolder(holder: ClassHolder, position: Int) {
-        var subject = subjects[position]
+        var subject = getItem(position)
         subject.percentageAttendance = if(subject.totalClasses == 0) 0.0 else Math.round((subject.classesAttended.toDouble()*100/subject.totalClasses).toDouble() * 10.0)/10.0
         holder.view.tvPercent.text = "${subject.percentageAttendance}%"
         holder.view.tvSubject.text = subject.subjectName
@@ -73,7 +75,16 @@ class SubjectItemAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<Subj
         }
     }
 
-    override fun getItemCount() = subjects.size
 
     inner class ClassHolder(val view: View):RecyclerView.ViewHolder(view)
+}
+
+class SubjectItemDiffCallBack : DiffUtil.ItemCallback<Subject>(){
+    override fun areItemsTheSame(oldItem: Subject, newItem: Subject): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Subject, newItem: Subject): Boolean {
+        return  oldItem == newItem
+    }
 }

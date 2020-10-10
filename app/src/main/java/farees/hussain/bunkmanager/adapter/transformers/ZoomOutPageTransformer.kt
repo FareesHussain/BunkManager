@@ -1,9 +1,7 @@
-package farees.hussain.bunkmanager.adapter.transformer
+package farees.hussain.bunkmanager.adapter.transformers
 
 import android.view.View
-import androidx.core.view.ViewCompat
 import androidx.viewpager2.widget.ViewPager2
-import java.lang.Math.abs
 
 private const val MIN_SCALE = 0.85f
 private const val MIN_ALPHA = 0.5f

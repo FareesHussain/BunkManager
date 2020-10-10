@@ -30,7 +30,14 @@ class ClassesFragment : Fragment() {
             add(Subject("math",75,"Not Yet Started","0/0",0, 0,0,0,false))
         }
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        b.rvClasses.adapter = SubjectItemAdapter(subjects)
+        val subjectItemAdapter = SubjectItemAdapter()
+        subjectItemAdapter.submitList(subjects)
+        b.rvClasses.adapter = subjectItemAdapter
+
+        b.floatingActionButton.setOnClickListener {
+            subjects.add(0,Subject("phy",75,"Not Yet Started","0/0",0, 0,0,0,false))
+            subjectItemAdapter.submitList(subjects)
+        }
 
         return b.root
     }
