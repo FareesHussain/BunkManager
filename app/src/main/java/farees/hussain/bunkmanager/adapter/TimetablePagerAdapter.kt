@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.db.model.TimeTableItem
 import farees.hussain.bunkmanager.other.Constants
-import kotlinx.android.synthetic.main.timetable_pageritem.view.*
+import kotlinx.android.synthetic.main.item_timetable_pager.view.*
 
 class TimetablePagerAdapter (val items: List<Constants.timeTableDay>, val TimetableClasses : List<TimeTableItem>) : RecyclerView.Adapter<TimetablePagerAdapter.PagerViewHolder>(){
     inner class PagerViewHolder(itemview:View):RecyclerView.ViewHolder(itemview)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        PagerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.timetable_pageritem, parent, false))
+        PagerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_timetable_pager, parent, false))
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int){
         holder.itemView.apply {
