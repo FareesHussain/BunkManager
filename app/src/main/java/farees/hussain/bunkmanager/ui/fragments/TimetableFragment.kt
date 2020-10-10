@@ -8,13 +8,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import farees.hussain.bunkmanager.adapter.TimetablePagerAdapter
 import farees.hussain.bunkmanager.adapter.transformer.ZoomOutPageTransformer
-import farees.hussain.bunkmanager.databinding.FragmentSettingsBinding
 import farees.hussain.bunkmanager.databinding.FragmentTimetableBinding
 import farees.hussain.bunkmanager.db.model.TimeTableItem
 import farees.hussain.bunkmanager.other.Constants
-import kotlinx.android.synthetic.main.fragment_timetable.*
-import kotlinx.android.synthetic.main.fragment_timetable.view.*
-import kotlinx.android.synthetic.main.timetable_pageritem.*
 import java.sql.Time
 import java.time.DayOfWeek
 

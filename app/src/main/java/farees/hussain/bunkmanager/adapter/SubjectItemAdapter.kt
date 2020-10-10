@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.db.model.Subject
-import kotlinx.android.synthetic.main.classes_item.view.*
+import kotlinx.android.synthetic.main.item_subjects.view.*
 
 class SubjectItemAdapter(var subjects:List<Subject>) : RecyclerView.Adapter<SubjectItemAdapter.ClassHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-        = ClassHolder(LayoutInflater.from(parent.context).inflate(R.layout.classes_item,parent,false))
+        = ClassHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_subjects,parent,false))
 
     override fun onBindViewHolder(holder: ClassHolder, position: Int) {
         var subject = subjects[position]

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.db.model.TimeTableItem
 import farees.hussain.bunkmanager.other.Constants
-import kotlinx.android.synthetic.main.timetable_classitem.view.*
+import kotlinx.android.synthetic.main.item_timetable_subjects.view.*
 
 class TimetableClassesAdapter (
     val classes : List<TimeTableItem>,
@@ -18,7 +18,7 @@ class TimetableClassesAdapter (
     val selectedDayClassses = classes.filter { (timeTableDay) -> timeTableDay == day }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        TimeTableViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.timetable_classitem,parent,false))
+        TimeTableViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_timetable_subjects,parent,false))
 
     override fun onBindViewHolder(holder: TimeTableViewHolder, position: Int) {
         val item = selectedDayClassses[position]
