@@ -11,18 +11,18 @@ import farees.hussain.bunkmanager.db.model.Subject
 
 class SubjectItemAdapter(
     val clickListner: SubjectItemClickListner
-) : ListAdapter<Subject, SubjectItemAdapter.ClassHolder>(SubjectItemDiffCallBack()) {
+) : ListAdapter<Subject, SubjectItemAdapter.subjectViewHolder>(SubjectItemDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-        = ClassHolder(ItemSubjectsBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        = subjectViewHolder(ItemSubjectsBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
-    override fun onBindViewHolder(holder: ClassHolder, position: Int) {
+    override fun onBindViewHolder(holder: subjectViewHolder, position: Int) {
         var subject = getItem(position)
         holder.bind(subject,clickListner)
     }
 
 
-    inner class ClassHolder(val binding: ItemSubjectsBinding):RecyclerView.ViewHolder(binding.root){
+    inner class subjectViewHolder(val binding: ItemSubjectsBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(item: Subject, clickListner: SubjectItemClickListner){
             item.percentageAttendance = if(item.totalClasses == 0) 0.0 else Math.round((item.classesAttended.toDouble()*100/item.totalClasses).toDouble() * 10.0)/10.0
             binding.subject = item
@@ -101,4 +101,15 @@ class SubjectItemClickListner(val clickListener: (subject: Subject)-> Unit){
         subject.subjectName = "changed"
         clickListener(subject)
     }
+}
+
+sealed class DataItem{
+    data class SubjectItem(val subject: Subject) : DataItem() {
+        override val id = subject.id!!
+    }
+
+    object Header:DataItem(){
+        override val id = Long.MIN_VALUE
+    }
+    abstract val id:Long
 }

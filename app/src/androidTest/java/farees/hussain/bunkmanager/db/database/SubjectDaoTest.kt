@@ -112,6 +112,6 @@ class SubjectDaoTest {
         val subjectItem1 = Subject("math",0,"0","",17,21,0,0,false,id = 1)
         dao.updateSubjectItem(subjectItem1)
         val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
-        assertThat(allShoppingItems).contains(subjectItem)
+        assertThat(allShoppingItems).contains(subjectItem1)
     }
 }

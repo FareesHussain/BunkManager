@@ -41,7 +41,7 @@ class ClassesFragment : Fragment() {
         )
         subjectItemAdapter.submitList(subjects)
         b.rvClasses.adapter = subjectItemAdapter
-        var id = 4
+        var id :Long= 4
         b.floatingActionButton.setOnClickListener {
             subjects.add(Subject("phy",75,"Not Yet Started","0/0",1, 5,0,0,false,id=id++))
             subjectItemAdapter.submitList(subjects)

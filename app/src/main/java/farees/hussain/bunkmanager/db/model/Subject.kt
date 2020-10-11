@@ -18,5 +18,5 @@ data class Subject(
     var percentageAttendance:Double = if(totalClasses == 0)0.0 else Math.round((classesAttended.toDouble()*100/totalClasses).toDouble() * 10.0)/10.0,
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int?=null
+    val id: Long?=null
 )
