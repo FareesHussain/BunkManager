@@ -2,27 +2,94 @@ package farees.hussain.bunkmanager.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import farees.hussain.bunkmanager.R
 import farees.hussain.bunkmanager.databinding.ItemSubjectsBinding
 import farees.hussain.bunkmanager.db.model.Subject
+import kotlinx.android.synthetic.main.subjects_header.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.ClassCastException
+
+// item view types for header and others
+private val ITEM_VIEW_TYPE_HEADER = 0
+private val ITEM_VIEW_TYPE_ITEM = 1
 
 class SubjectItemAdapter(
     val clickListner: SubjectItemClickListner
-) : ListAdapter<Subject, SubjectItemAdapter.subjectViewHolder>(SubjectItemDiffCallBack()) {
+) : ListAdapter<DataItem, RecyclerView.ViewHolder>(SubjectItemDiffCallBack()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-        = subjectViewHolder(ItemSubjectsBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
-    override fun onBindViewHolder(holder: subjectViewHolder, position: Int) {
-        var subject = getItem(position)
-        holder.bind(subject,clickListner)
+    /*
+        to add Header dataitem at the top of the list
+        submit a list of DataItem to the diffutil
+     */
+    private val adapterScope = CoroutineScope(Dispatchers.Default)
+    fun addHeaderAndSubmitList(list: List<Subject>?) {
+        adapterScope.launch {
+            val items = when (list) {
+                null -> listOf(DataItem.Header)
+                else -> listOf(DataItem.Header) + list.map { DataItem.SubjectItem(it) }
+            }
+            withContext(Dispatchers.Main) {
+                submitList(items)
+            }
+        }
+    }
+    /*
+        sets Item ViewType according to the Header or Subject Item of the DataItem
+     */
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
+            is DataItem.SubjectItem -> ITEM_VIEW_TYPE_ITEM
+        }
+    }
+    /*
+        returns a Recycler ViewHolder according to the viewType
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder{
+        return when(viewType){
+            ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
+            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown view type $viewType")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(holder){
+            is ViewHolder -> {
+                val subjectItem = getItem(position) as DataItem.SubjectItem
+                holder.bind(subjectItem.subject, clickListner)
+            }
+        }
+    }
+
+    /*
+        Custom ViewHolder for Header
+        // todo change the layout for header
+     */
+    class TextViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        companion object {
+            // from is use to inflate the layout int the onCreateViewHolder
+            fun from(parent: ViewGroup): TextViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.subjects_header, parent, false)
+                view.text.text = "Subjects Attendance Here"
+                return TextViewHolder(view)
+            }
+        }
     }
 
 
-    inner class subjectViewHolder(val binding: ItemSubjectsBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: ItemSubjectsBinding):RecyclerView.ViewHolder(binding.root){
+        // todo use databinding to the fullest
         fun bind(item: Subject, clickListner: SubjectItemClickListner){
             item.percentageAttendance = if(item.totalClasses == 0) 0.0 else Math.round((item.classesAttended.toDouble()*100/item.totalClasses).toDouble() * 10.0)/10.0
             binding.subject = item
@@ -81,16 +148,26 @@ class SubjectItemAdapter(
                 binding.subject = item
             }
         }
+
+        // from is used to set inflate the layout in the onCreateViewHolder
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemSubjectsBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
+            }
+        }
     }
 }
 
-class SubjectItemDiffCallBack : DiffUtil.ItemCallback<Subject>(){
-    override fun areItemsTheSame(oldItem: Subject, newItem: Subject): Boolean {
+// diff util is changed it accepts a list of DataItem
+class SubjectItemDiffCallBack : DiffUtil.ItemCallback<DataItem>(){
+    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Subject, newItem: Subject): Boolean {
-        return  oldItem.totalClasses == newItem.totalClasses
+    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        return  oldItem == newItem
     }
 }
 
@@ -103,6 +180,10 @@ class SubjectItemClickListner(val clickListener: (subject: Subject)-> Unit){
     }
 }
 
+/*  Dataitem is used as a list to use in the recycler view
+    it has SubjectItem used in items
+    and Header used as a Header
+ */
 sealed class DataItem{
     data class SubjectItem(val subject: Subject) : DataItem() {
         override val id = subject.id!!
