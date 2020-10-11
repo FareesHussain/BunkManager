@@ -3,6 +3,8 @@ package farees.hussain.bunkmanager.ui
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -90,10 +92,12 @@ class MainActivity : AppCompatActivity() {
             addNextIntentWithParentStack(intent)
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
+        //todo fixing the notification icon color
         val notification = NotificationCompat.Builder(this,CHANNEL_ID)
             .setContentTitle("Awesome Notification")
             .setContentText("This is content Text")
             .setSmallIcon(R.drawable.ic_app_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_app_icon))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .build()

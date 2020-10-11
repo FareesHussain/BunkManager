@@ -7,6 +7,9 @@
         <variable
             name="subject"
             type="farees.hussain.bunkmanager.db.model.Subject" />
+        <variable
+            name="itemclickListner"
+            type="farees.hussain.bunkmanager.adapter.SubjectItemClickListner" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -19,7 +22,9 @@
         android:focusable="true"
         android:padding="5dp"
         android:layout_margin="3dp"
-        app:cardPreventCornerOverlap="false">
+        app:cardPreventCornerOverlap="false"
+        android:onClick="@{() -> itemclickListner.itemClick(subject)}"
+        >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

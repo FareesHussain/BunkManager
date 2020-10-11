@@ -9,21 +9,24 @@ import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.databinding.ItemSubjectsBinding
 import farees.hussain.bunkmanager.db.model.Subject
 
-class SubjectItemAdapter() : ListAdapter<Subject, SubjectItemAdapter.ClassHolder>(SubjectItemDiffCallBack()) {
+class SubjectItemAdapter(
+    val clickListner: SubjectItemClickListner
+) : ListAdapter<Subject, SubjectItemAdapter.ClassHolder>(SubjectItemDiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
         = ClassHolder(ItemSubjectsBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: ClassHolder, position: Int) {
         var subject = getItem(position)
-        holder.bind(subject)
+        holder.bind(subject,clickListner)
     }
 
 
     inner class ClassHolder(val binding: ItemSubjectsBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(item: Subject){
+        fun bind(item: Subject, clickListner: SubjectItemClickListner){
             item.percentageAttendance = if(item.totalClasses == 0) 0.0 else Math.round((item.classesAttended.toDouble()*100/item.totalClasses).toDouble() * 10.0)/10.0
             binding.subject = item
+            binding.itemclickListner = clickListner
             binding.executePendingBindings()
 
             /*attendance status if less than 75 and if greater than 75%*/
@@ -87,6 +90,15 @@ class SubjectItemDiffCallBack : DiffUtil.ItemCallback<Subject>(){
     }
 
     override fun areContentsTheSame(oldItem: Subject, newItem: Subject): Boolean {
-        return  oldItem == newItem
+        return  oldItem.totalClasses == newItem.totalClasses
+    }
+}
+
+class SubjectItemClickListner(val clickListener: (subject: Subject)-> Unit){
+
+    //todo add click listeners for bunk, attend and no class today buttons
+    fun itemClick(subject: Subject) {
+        subject.subjectName = "changed"
+        clickListener(subject)
     }
 }

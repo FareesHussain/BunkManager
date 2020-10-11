@@ -13,6 +13,9 @@ interface SubjectDao {
     @Delete
     suspend fun deleteSubjectItem(subjectItem: Subject)
 
+    @Update
+    suspend fun updateSubjectItem(subjectItem: Subject)
+
     @Query("select * from subject_items")
     fun observeAllSubjectItems(): LiveData<List<Subject>>
 

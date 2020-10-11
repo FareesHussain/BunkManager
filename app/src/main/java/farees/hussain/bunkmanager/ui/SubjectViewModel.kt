@@ -24,7 +24,6 @@ class SubjectViewModel @ViewModelInject constructor(
     val insertSubjectItemStatus : LiveData<Event<Resource<Subject>>> = _insertSubjectItemStatus
 
     fun insertSubjectItem(subject: Subject) = viewModelScope.launch {
-
         repository.insertSubjectItem(subject)
     }
     fun insertShoppingItem(subjectName: String,requiredPercentage:String, classesAttended:String, totalClasses:String){
@@ -95,6 +94,10 @@ class SubjectViewModel @ViewModelInject constructor(
             attendanceCheckedToday = false,
             percentageAttendance = percentageAttendance
         )
+    }
+
+    fun updateSubjectItem(subject: Subject) = viewModelScope.launch{
+        repository.updateSubjectItem(subject)
     }
 
 }

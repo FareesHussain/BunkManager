@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import farees.hussain.bunkmanager.adapter.SubjectItemAdapter
+import farees.hussain.bunkmanager.adapter.SubjectItemClickListner
 import farees.hussain.bunkmanager.databinding.FragmentClassesBinding
 import farees.hussain.bunkmanager.db.model.Subject
 import farees.hussain.bunkmanager.ui.SubjectViewModel
@@ -30,12 +33,17 @@ class ClassesFragment : Fragment() {
             add(Subject("math",75,"Not Yet Started","0/0",0, 0,0,0,false,id=3))
         }
         b.rvClasses.layoutManager = LinearLayoutManager(context,RecyclerView.VERTICAL,false)
-        val subjectItemAdapter = SubjectItemAdapter()
+        val subjectItemAdapter = SubjectItemAdapter(
+            SubjectItemClickListner { subject ->
+                Toast.makeText(context, "${subject.subjectName} clicked ", Toast.LENGTH_SHORT).show()
+                //todo update subject item function here
+            }
+        )
         subjectItemAdapter.submitList(subjects)
         b.rvClasses.adapter = subjectItemAdapter
         var id = 4
         b.floatingActionButton.setOnClickListener {
-            subjects.add(Subject("phy",75,"Not Yet Started","0/0",0, 0,0,0,false,id=id++))
+            subjects.add(Subject("phy",75,"Not Yet Started","0/0",1, 5,0,0,false,id=id++))
             subjectItemAdapter.submitList(subjects)
         }
 

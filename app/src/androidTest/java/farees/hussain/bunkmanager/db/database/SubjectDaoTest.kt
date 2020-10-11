@@ -46,14 +46,14 @@ class SubjectDaoTest {
 
     @Test
     fun insertSubjectItem() = runBlockingTest {
-        val subjectItem = Subject("physics","0","0",0,0,0,0,false,id=1)
+        val subjectItem = Subject("physics",0,"0","",0,0,0,0,false,id=1)
         dao.insertSubjectItem(subjectItem)
         val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
         assertThat(allShoppingItems).contains(subjectItem)
     }
     @Test
     fun deleteSubjectItem() = runBlockingTest {
-        val subjectItem = Subject("physics","0","0",0,0,0,0,false,id=1)
+        val subjectItem = Subject("physics",0,"0","",0,0,0,0,false,id=1)
         dao.insertSubjectItem(subjectItem)
         dao.deleteSubjectItem(subjectItem)
         val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
@@ -62,9 +62,9 @@ class SubjectDaoTest {
 
     @Test
     fun observeTotalMustAttendClasses() = runBlockingTest {
-        val subjectItem1 = Subject("math","0","0",0,0,0,0,false,id = 1)
-        val subjectItem2 = Subject("math","0","0",3,4,0,5,false,id = 2)
-        val subjectItem3 = Subject("math","0","0",3,4,0,10,false,id = 3)
+        val subjectItem1 = Subject("math",0,"0","",0,0,0,0,false,id = 1)
+        val subjectItem2 = Subject("math",0,"0","",3,4,0,5,false,id = 2)
+        val subjectItem3 = Subject("math",0,"0","",3,4,0,10,false,id = 3)
         dao.insertSubjectItem(subjectItem1)
         dao.insertSubjectItem(subjectItem2)
         dao.insertSubjectItem(subjectItem3)
@@ -73,9 +73,9 @@ class SubjectDaoTest {
     }
     @Test
     fun observeTotalCanBunkClasses() = runBlockingTest {
-        val subjectItem1 = Subject("math","0","0",0,0,0,0,false,id = 1)
-        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
-        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        val subjectItem1 = Subject("math",0,"0","",0,0,0,0,false,id = 1)
+        val subjectItem2 = Subject("math",0,"0","",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math",0,"0","",3,4,10,10,false,id = 3)
         dao.insertSubjectItem(subjectItem1)
         dao.insertSubjectItem(subjectItem2)
         dao.insertSubjectItem(subjectItem3)
@@ -84,9 +84,9 @@ class SubjectDaoTest {
     }
     @Test
     fun observeTotalBunkedClasses() = runBlockingTest {
-        val subjectItem1 = Subject("math","0","0",16,20,0,0,false,id = 1)
-        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
-        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        val subjectItem1 = Subject("math",0,"0","",16,20,0,0,false,id = 1)
+        val subjectItem2 = Subject("math",0,"0","",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math",0,"0","",3,4,10,10,false,id = 3)
         dao.insertSubjectItem(subjectItem1)
         dao.insertSubjectItem(subjectItem2)
         dao.insertSubjectItem(subjectItem3)
@@ -95,13 +95,23 @@ class SubjectDaoTest {
     }
     @Test
     fun observeTotalAttendedClasses() = runBlockingTest {
-        val subjectItem1 = Subject("math","0","0",16,20,0,0,false,id = 1)
-        val subjectItem2 = Subject("math","0","0",3,4,5,5,false,id = 2)
-        val subjectItem3 = Subject("math","0","0",3,4,10,10,false,id = 3)
+        val subjectItem1 = Subject("math",0,"0","",16,20,0,0,false,id = 1)
+        val subjectItem2 = Subject("math",0,"0","",3,4,5,5,false,id = 2)
+        val subjectItem3 = Subject("math",0,"0","",3,4,10,10,false,id = 3)
         dao.insertSubjectItem(subjectItem1)
         dao.insertSubjectItem(subjectItem2)
         dao.insertSubjectItem(subjectItem3)
         val totalMustAttend = dao.observeTotalClassesAttended().getOrAwaitValue()
         assertThat(totalMustAttend).isEqualTo(22)
+    }
+
+    @Test
+    fun updateSubjectItem() = runBlockingTest {
+        val subjectItem = Subject("math",0,"0","",16,20,0,0,false,id = 1)
+        dao.insertSubjectItem(subjectItem)
+        val subjectItem1 = Subject("math",0,"0","",17,21,0,0,false,id = 1)
+        dao.updateSubjectItem(subjectItem1)
+        val allShoppingItems = dao.observeAllSubjectItems().getOrAwaitValue()
+        assertThat(allShoppingItems).contains(subjectItem)
     }
 }
